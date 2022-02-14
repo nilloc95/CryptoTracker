@@ -1,0 +1,21 @@
+{%extends "base.jinja2"%}
+{%block content%}
+
+<div class="container pt-5">
+  <form class="pt-5" action="/custom-tracker-setup" method="post">
+    <div class="mb-3">
+      <label for="subName" class="form-label">Enter SubReddit Name (case sensitive)</label>
+      <input type="text" required field="subName" value="AnimalsBeingDerps"name="subName" class="form-control" id="subName">
+    </div>
+    <div class="mb-3">
+      <label for="customName" class="form-label">Name your tracker</label>
+      <input type="text" required field="customName" value="DerpyAnimalTracker" name="customName" class="form-control" id="customName">
+    </div>
+    <div class="mb-3">
+      <label for="trackedWords" class="form-label">Enter List of words to track (one per line)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <button type="button" class="btn btn-warning">Generate words</button></label>
+      <textarea class="form-control" field="trackedWords" name="trackedWords" required id="trackedWords" rows="8">dog&#13;&#10;cat&#13;&#10;dogs&#13;&#10;cats&#13;&#10;elephant&#13;&#10;puppy&#13;&#10;derp</textarea>
+    </div>  
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+{%endblock %}

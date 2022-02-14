@@ -1,0 +1,29 @@
+{%extends "base.jinja2"%}
+{%block content%}
+    <div class="container">
+    <br>
+    <h2 class="d-flex justify-content-center">Trending words on {{subName}} in the past 24 hours</h2>
+    <br>
+    <table class="table table-dark table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Rank</th>
+                <th scope="col">Word</th>
+                <th scope="col">Mentions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {%for item in data%}
+            <tr>
+            <th scope="row">{{loop.index}}</th>
+            <td>{{item.name}}</td>
+            <td>{{item.count}}</td>
+            </tr>
+
+        {%endfor%}
+    </tbody>
+    </table>
+    </div>
+
+{%endblock%}
+

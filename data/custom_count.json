@@ -1,0 +1,15 @@
+[
+  { "name": "tesla", "count": 31 },
+  { "name": "facebook", "count": 20 },
+  { "name": "twitter", "count": 19 },
+  { "name": "gamestop", "count": 18 },
+  { "name": "roblox", "count": 14 },
+  { "name": "apple", "count": 14 },
+  { "name": "amazon", "count": 8 },
+  { "name": "microsoft", "count": 8 },
+  { "name": "nvidia", "count": 7 },
+  { "name": "moderna", "count": 5 },
+  { "name": "amd", "count": 3 },
+  { "name": "netflix", "count": 2 },
+  { "name": "walmart", "count": 1 }
+]
