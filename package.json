@@ -1,0 +1,22 @@
+{
+  "name": "cryptotracker",
+  "version": "1.0.0",
+  "description": "Tracks crypto currency trends on reddit",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nilloc95/CryptoTracker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nilloc95/CryptoTracker/issues"
+  },
+  "homepage": "https://github.com/nilloc95/CryptoTracker#readme",
+  "dependencies": {
+    "fs": "^0.0.1-security"
+  }
+}

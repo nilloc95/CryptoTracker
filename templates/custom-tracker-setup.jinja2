@@ -12,10 +12,25 @@
       <input type="text" required field="customName" value="DerpyAnimalTracker" name="customName" class="form-control" id="customName">
     </div>
     <div class="mb-3">
-      <label for="trackedWords" class="form-label">Enter List of words to track (one per line)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <button type="button" class="btn btn-warning">Generate words</button></label>
-      <textarea class="form-control" field="trackedWords" name="trackedWords" required id="trackedWords" rows="8">dog&#13;&#10;cat&#13;&#10;dogs&#13;&#10;cats&#13;&#10;elephant&#13;&#10;puppy&#13;&#10;derp</textarea>
+      <label for="trackedWords" class="form-label">Enter List of words to track (one per line)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <form action="/getWords">
+        <button type="button" onClick="addWords({{listOfWords}})" class="btn btn-warning">Generate words</button>
+      </form>
+      </label>
+      <textarea id="wordList" class="form-control" field="trackedWords" name="trackedWords" required id="trackedWords" rows="8"></textarea>
     </div>  
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 </div>
+<script>
+  const addWords = async (wordList) => {
+    response = await fetch('/getWords')
+    words = await response.json()
+    words = words['words']
+    console.log(words.length)
+    textArea = document.getElementById('wordList')
+    textArea.value = words.join('\n')
+    
+  }
+</script>
 {%endblock %}

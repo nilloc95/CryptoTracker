@@ -1,4 +1,5 @@
 import json
+import time
 from flask import Flask
 from flask import render_template, request, redirect
 from custom_tracker import customTracker 
@@ -22,7 +23,7 @@ async def custom_tracker():
     return render_template('custom-tracker.jinja2', data=data)
 
 @app.route('/custom-tracker-setup', methods=['POST', 'GET'])
-def custom_tracker_setup():
+async def custom_tracker_setup():
     if request.method == 'POST':
         print('POST Request received')
         # print(request.form)
@@ -35,7 +36,14 @@ def custom_tracker_setup():
         data = customTracker(subName, trackedWords, days)
         return render_template('custom-tracker-test.jinja2', data=data, subName=subName)
     else:
-        return render_template('custom-tracker-setup.jinja2', listOfDogs=listOfDogs, stocksList=stocksList)
+        listOfWords = await generateWords()
+        return render_template('custom-tracker-setup.jinja2',listOfWords=listOfWords)
+
+@app.route('/getWords')
+async def getWords():
+    retDict = {}
+    retDict['words'] = await generateWords()
+    return retDict
 
 @app.route('/profile')
 def profile_page():
@@ -51,6 +59,15 @@ async def get_data(file):
     with open(file) as f:
         data = json.load(f)
     return data
+
+async def generateWords():
+    with open('./services/word_generator/number.txt', 'w') as number_file:
+        number_file.write("100")
+    time.sleep(1)
+    with open('./services/word_generator/random_words.txt', 'r') as word_file:
+        lines = word_file.read().splitlines()
+        print(len(lines))
+    return lines
 
 if __name__ == '__main__':
     app.run(debug=True)
