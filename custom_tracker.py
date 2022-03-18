@@ -1,13 +1,10 @@
 import json
 import praw
 # from collections import Counter
-import time
-import datetime
 from datetime import timedelta
 import datetime as dt
 import os
 from dotenv import load_dotenv
-
 from psaw import PushshiftAPI
 
 load_dotenv()
@@ -19,9 +16,7 @@ def customTracker(subName, wordList, days):
 
     print(subName, wordList, days)
 
-    # convert list of words to all lowercase
     wordList = [word.lower() for word in wordList]
-    # print(wordList)
 
     today = dt.datetime.now()
     lastweek = int((today - timedelta(days=days)).timestamp())
@@ -30,16 +25,12 @@ def customTracker(subName, wordList, days):
     gen = api.search_submissions(subreddit=subName, after=lastweek)
     results = list(gen)    
 
-    # print(len(results))
-
     for item in results:
         title = item.title.split(' ')
         for word in title:
             words_collected.append(word.lower())
 
     fillFinalDict(wordList, words_collected, final_dict, json_dump)
-    # printFinalDict(final_dict)
-    # writeDictToJSON(json_dump)
 
     return sorted(json_dump, key=lambda x: x['count'], reverse=True)
 
@@ -80,6 +71,3 @@ def setupReddit():
 
     return reddit
 
-# stocksList = ['Tesla', 'GameStop', 'AMD', 'Apple', 'Facebook', 'Netflix', 'Microsoft', 'Nvidia', 'Oracle', 'Tesla', 'Twitter', 'Visa', 'Walmart']
-# subreddit = 'wallstreetbets'
-# customTracker(subreddit, stocksList, 7)

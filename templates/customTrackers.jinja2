@@ -1,0 +1,15 @@
+{%extends "base.jinja2"%}
+{%block content%}
+
+<h1 class="d-flex justify-content-center p-5">All current trackers</h1>
+<div class="container">
+    <ul class="list-group list-group-flush">
+        {% for tracker in trackers%}
+        <a href="customTracker/{{tracker._id}}">
+        <li id={{tracker._id}} class="list-group-item">{{tracker['post']['customName']}}</li>
+        </a>
+        {%endfor%}
+    </ul>
+</div>
+
+{%endblock%}

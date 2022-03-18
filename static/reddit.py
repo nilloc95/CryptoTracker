@@ -1,26 +1,28 @@
-import json
+from bson.objectid import ObjectId
 import praw
-# from collections import Counter
 import time
-import datetime
 from datetime import timedelta
 import datetime as dt
 import os
 from dotenv import load_dotenv
 from cryptos import crypto_dict
-
+from pymongo import MongoClient
 from psaw import PushshiftAPI
 
 load_dotenv()
 final_dict = {}
 words_collected = []
 json_dump = []
+client = MongoClient('mongodb+srv://collingilmore:Buddy20201995!!@cluster0.04dxl.mongodb.net/mydb?retryWrites=true&w=majority')
+db = client.mydb
+days = 7
 
 def main():
+    print("running...")
     subName = "CryptoCurrency"
 
     today = dt.datetime.now()
-    yesterday = int((today - timedelta(days=7)).timestamp())
+    yesterday = int((today - timedelta(days=days)).timestamp())
 
     api = PushshiftAPI(setupReddit())
     gen = api.search_submissions(subreddit=subName, after=yesterday)
@@ -34,8 +36,7 @@ def main():
             words_collected.append(word)
 
     fillFinalDict()
-    # printFinalDict()
-    writeDictToJSON()
+    writeToMongo()
 
 
 
@@ -56,10 +57,18 @@ def printFinalDict():
     for item in sorted_dict:
         print(f"{item}: {final_dict[item]}")
 
-def writeDictToJSON():
+def writeToMongo():
+    print("writing to mongo...")
     sorted_dict = sorted(json_dump, key=lambda x: x['count'], reverse=True)
-    with open('./data/crypto_count.json', 'w') as f:
-        json.dump(sorted_dict, f)
+    post = {
+        'subName': 'CryptoCurrency',
+        'customName': 'CryptoTracker',
+        'data': sorted_dict
+    }
+    collection = db.ScrapedData
+    collection.find_one_and_update({'_id': ObjectId("6233b1caa4a549ff574fcd27")}, {'$set': post})
+    
+    print("Completed.")
 
 def setupReddit():
     reddit_client_id = os.getenv('reddit_client_id')
@@ -77,4 +86,6 @@ def setupReddit():
 
 
 if __name__ == '__main__':
-    main()
+    while True:
+        main()
+        time.sleep(86300)

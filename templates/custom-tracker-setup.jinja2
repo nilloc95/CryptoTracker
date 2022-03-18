@@ -2,7 +2,8 @@
 {%block content%}
 
 <div class="container pt-5">
-  <form class="pt-5" action="/custom-tracker-setup" method="post">
+<div id="loading" class="d-flex justify-content-center"></div>
+  <form class="pt-5 content" action="/custom-tracker-setup" method="post">
     <div class="mb-3">
       <label for="subName" class="form-label">Enter SubReddit Name (case sensitive)</label>
       <input type="text" required field="subName" value="AnimalsBeingDerps"name="subName" class="form-control" id="subName">
@@ -15,11 +16,10 @@
       <label for="trackedWords" class="form-label">Enter List of words to track (one per line)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
       <form action="/getWords">
         <button type="button" onClick="addWords({{listOfWords}})" class="btn btn-warning">Generate words</button>
-      </form>
       </label>
       <textarea id="wordList" class="form-control" field="trackedWords" name="trackedWords" required id="trackedWords" rows="8"></textarea>
     </div>  
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary" onClick="loading();">Submit</button>
   </form>
 </div>
 <script>
@@ -31,6 +31,13 @@
     textArea = document.getElementById('wordList')
     textArea.value = words.join('\n')
     
+  }
+
+  const loading = () => {
+    loadingDiv = document.getElementById('loading')
+    formDiv = document.querySelector('.content')
+    formDiv.style.display = 'none'
+    loadingDiv.innerHTML = '<iframe src="https://giphy.com/embed/jAYUbVXgESSti" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>'
   }
 </script>
 {%endblock %}

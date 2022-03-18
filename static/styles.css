@@ -1,4 +1,12 @@
-body, html {
+body, html, .container {
     background-color: rgb(120, 120, 120) !important;
     color: white !important;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+#loading {
+    margin: auto;
 }
